@@ -5,24 +5,22 @@
 @layer base {
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-geist: 'Geist', system-ui, sans-serif;
-    --font-geist-mono: 'Geist Mono', monospace;
-    --font-mona: 'Mona Sans', system-ui, sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-manrope: 'Manrope', system-ui, sans-serif;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    background: #0B1F33;
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased bg-[#0B1F33];
   }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
+/* Custom utility classes */
 @layer utilities {
   .animate-in {
     animation-name: animateIn;
@@ -43,4 +41,26 @@
     --tw-exit-translate-x: initial;
     --tw-exit-translate-y: initial;
   }
+
+  /* Fluid background motion - very slow, subtle */
+  .animate-mesh-slow {
+    animation: meshDrift 60s ease-in-out infinite alternate;
+  }
+  .animate-spotlight {
+    animation: spotlightDrift 60s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes animateIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes animateOut { 0% { opacity: 1 } 100% { opacity: 0 } }
+
+@keyframes meshDrift {
+  0% { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg) saturate(1.05); }
+  50% { transform: translate3d(0,-1%,0) scale(1.01); filter: hue-rotate(1deg) saturate(1.06); }
+  100% { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg) saturate(1.05); }
+}
+
+@keyframes spotlightDrift {
+  0% { transform: translate3d(0,0,0) }
+  100% { transform: translate3d(-1%, 1%, 0) }
 }
